@@ -12,11 +12,13 @@ library by [Camunda](https://camunda.com/).
 2. Click on **Browse** and search for "DMN Eval Plugin"
 3. Click install
 4. Toggle the plugin on in the **Community Plugins** tab
+5. **Important:** You need [Java](https://www.java.com/en/download/help/download_options_de.html) 14 or later installed
 
 ### .. manually from this repo
 
 1. Download the latest [release](https://github.com/joleaf/obsidian-dmn-eval-plugin/releases) `*.zip` file.
 2. Unpack the zip in the `.obsidan/plugins` folder of your obsidian vault
+3. **Important:** You need [Java](https://www.java.com/en/download/help/download_options_de.html) 14 or later installed
 
 ## Requirements
 

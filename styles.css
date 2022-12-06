@@ -1,2 +1,5 @@
 /* Styles */
 
+.dmn-error {
+    color: red !important;
+}

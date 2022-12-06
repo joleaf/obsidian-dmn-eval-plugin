@@ -42,13 +42,17 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                 exec("java -jar " + path + "/DmnEvaluator.jar " + dmnParams, (error, stdout, stderr) => {
                     if (error) {
                         console.error(`DMN error: ${error.message}`);
-                        el.createEl("h2", {text: "DMN Error, check log for details."})
+                        el.createEl("h4", {text: "DMN Error", cls: "dmn-error"});
+                        el.createEl("span", {text: error.message});
+                    } else if (stderr) {
+                        console.error(`DMN error: ${stderr}`);
+                        el.createEl("h4", {text: "DMN Error", cls: "dmn-error"});
+                        el.createEl("span", {text: stderr});
                     } else {
                         let lines = stdout.split("\n").map(value => value.trim()).filter(value => value.length > 0);
                         this.renderResult(lines, el);
                     }
                 });
-
             } catch (error) {
                 el.createEl("h3", {text: error});
             }

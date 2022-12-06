@@ -42,10 +42,12 @@ decisionId: Evaluator
 
 You can customize the view with the following parameters:
 
-| Parameter   | Description                                       | Values                                                  |
-|-------------|---------------------------------------------------|---------------------------------------------------------|
-| url         | The url of the *.dmn file (required).             | Relative/Absolute path, or `[[*.dmn]]` as markdown link. |
-| decisionId  | An ID of a decision table to evaluate (required). | String value                                            |
+| Parameter       | Description                                              | Values                                                   |
+|-----------------|----------------------------------------------------------|----------------------------------------------------------|
+| url             | The url of the *.dmn file (required).                    | Relative/Absolute path, or `[[*.dmn]]` as markdown link. |
+| decisionId      | An ID of a decision table to evaluate (required).        | String value                                             |
+| title           | An optional title rendered before the DMN output.        | String value                                             |
+| noResultMessage | An optional message if the evaluation returns no result. | String value (Default: "No result")                      |
 
 ### Example
 

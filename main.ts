@@ -5,6 +5,8 @@ import {exec} from 'child_process'
 interface DmnNodeParameters {
     url: string;
     decisionId: string;
+    title: string;
+    noResultMessage: string;
 }
 
 export default class ObsidianDmnEvalPlugin extends Plugin {
@@ -39,6 +41,7 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                 }
                 //@ts-ignore
                 let path = this.app.vault.adapter.basePath + "/" + app.vault.configDir + "/plugins/dmn-eval-plugin";
+                const parameterCopy = parameters;
                 exec("java -jar " + path + "/DmnEvaluator.jar " + dmnParams, (error, stdout, stderr) => {
                     if (error) {
                         console.error(`DMN error: ${error.message}`);
@@ -50,7 +53,7 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                         el.createEl("span", {text: stderr});
                     } else {
                         let lines = stdout.split("\n").map(value => value.trim()).filter(value => value.length > 0);
-                        this.renderResult(lines, el);
+                        this.renderResult(lines, el, parameterCopy);
                     }
                 });
             } catch (error) {
@@ -59,9 +62,12 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
         });
     }
 
-    private renderResult(lines: string[], rootElement: HTMLElement) {
+    private renderResult(lines: string[], rootElement: HTMLElement, parameters: DmnNodeParameters) {
+        if (parameters.title) {
+            rootElement.createEl("h2", {text: parameters.title, cls: "dmn-result-title"})
+        }
         if (lines.length == 0) {
-            this.renderNoResult(rootElement);
+            this.renderNoResult(rootElement, parameters);
         } else {
             // Check if multiple values are returned
             if (lines[0].split("||").length > 1) {
@@ -76,8 +82,8 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
         }
     }
 
-    private renderNoResult(rootElement: HTMLElement) {
-        rootElement.createEl("span", {"text": "No rules"});
+    private renderNoResult(rootElement: HTMLElement, parameters: DmnNodeParameters) {
+        rootElement.createEl("span", {"text": parameters.noResultMessage});
     }
 
     private renderSingleResult(line: string, rootElement: HTMLElement) {
@@ -129,6 +135,10 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                 parameters.url,
                 ""
             ).path;
+        }
+
+        if (parameters.noResultMessage == undefined) {
+            parameters.noResultMessage = "No result"
         }
 
         return parameters;

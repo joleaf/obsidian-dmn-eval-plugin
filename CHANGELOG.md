@@ -2,9 +2,15 @@
 
 All changes to this plugin are listed here.
 
-## 0.1.0 (14.11.2022)
+## 0.1.1 (06.12.2022)
 
 ### Added
 
-- Base functionality to view DMNs (DRD + Tables)
-- Config with JSON
+- Improve error handling & messages
+- Add "title" and "noResultMessage" parameter
+
+## 0.1.0 (06.12.2022)
+
+### Added
+
+- Base functionality to execute DMNs

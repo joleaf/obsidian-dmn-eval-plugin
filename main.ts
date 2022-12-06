@@ -14,8 +14,6 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
 
         this.registerMarkdownCodeBlockProcessor("dmn-eval", async (src, el, ctx) => {
             // Get Parameters
-            console.log(app.metadataCache.getFileCache(app.workspace.getActiveFile()!));
-            console.log(app.metadataCache.getFileCache(app.workspace.getActiveFile()!)?.frontmatter);
             let parameters: DmnNodeParameters | null = null;
             try {
                 parameters = this.readParameters(src);
@@ -33,7 +31,6 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                 }
                 //@ts-ignore
                 parameters.url = this.app.vault.adapter.basePath + "/" + parameters.url;
-                console.log(parameters.url);
 
                 let dmnParams = '"' + parameters.url + '" ' + parameters.decisionId;
                 // @ts-ignore
@@ -42,7 +39,6 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                 }
                 //@ts-ignore
                 let path = this.app.vault.adapter.basePath + "/" + app.vault.configDir + "/plugins/dmn-eval-plugin";
-                console.log(path);
                 exec("java -jar " + path + "/DmnEvaluator.jar " + dmnParams, (error, stdout, stderr) => {
                     if (error) {
                         console.error(`DMN error: ${error.message}`);

@@ -3,6 +3,7 @@
 This plugin lets you evaluate (execute) DMNs within your [Obsidian](https://www.obsidian.md) notes.
 The DMN evaluator is based on the [dmn-engine](https://github.com/camunda/camunda-bpm-platform/tree/master/engine-dmn)
 library by [Camunda](https://camunda.com/).
+If you want to view DMNs in your note, look at the [DMN Plugin](https://github.com/joleaf/obsidian-dmn-plugin).
 
 ## Install ..
 

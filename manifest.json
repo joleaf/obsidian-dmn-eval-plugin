@@ -1,10 +1,10 @@
 {
 	"id": "dmn-eval-plugin",
 	"name": "DMN Eval Plugin",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"minAppVersion": "0.15.0",
 	"description": "This plugin enables evaluating/executing DMN",
 	"author": "JoLeaf",
 	"authorUrl": "https://github.com/JoLeaf",
-	"isDesktopOnly": false
+	"isDesktopOnly": true
 }

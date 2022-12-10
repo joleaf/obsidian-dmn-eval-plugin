@@ -2,6 +2,13 @@
 
 All changes to this plugin are listed here.
 
+## 0.1.2 (10.12.2022)
+
+### Changed
+
+- parameters all lowercase
+- Desktop only = true
+
 ## 0.1.1 (06.12.2022)
 
 ### Added

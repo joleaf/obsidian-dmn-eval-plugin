@@ -4,9 +4,9 @@ import {exec} from 'child_process'
 
 interface DmnNodeParameters {
     url: string;
-    decisionId: string;
+    decisionid: string;
     title: string;
-    noResultMessage: string;
+    noresultmessage: string;
 }
 
 export default class ObsidianDmnEvalPlugin extends Plugin {
@@ -34,7 +34,7 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                 //@ts-ignore
                 parameters.url = this.app.vault.adapter.basePath + "/" + parameters.url;
 
-                let dmnParams = '"' + parameters.url + '" ' + parameters.decisionId;
+                let dmnParams = '"' + parameters.url + '" ' + parameters.decisionid;
                 // @ts-ignore
                 for (const [key, value] of Object.entries(app.metadataCache.getFileCache(app.workspace.getActiveFile()!)?.frontmatter)) {
                     dmnParams += ' "' + key + '" "' + value + '"';
@@ -83,7 +83,7 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
     }
 
     private renderNoResult(rootElement: HTMLElement, parameters: DmnNodeParameters) {
-        rootElement.createEl("span", {"text": parameters.noResultMessage});
+        rootElement.createEl("span", {"text": parameters.noresultmessage});
     }
 
     private renderSingleResult(line: string, rootElement: HTMLElement) {
@@ -137,8 +137,8 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
             ).path;
         }
 
-        if (parameters.noResultMessage == undefined) {
-            parameters.noResultMessage = "No result"
+        if (parameters.noresultmessage == undefined) {
+            parameters.noresultmessage = "No result"
         }
 
         return parameters;

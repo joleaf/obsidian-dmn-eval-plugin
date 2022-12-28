@@ -2,6 +2,12 @@
 
 All changes to this plugin are listed here.
 
+## 0.1.3 (xx.xx.202x)
+
+### Changed
+
+- Use obsidian parseYaml
+
 ## 0.1.2 (10.12.2022)
 
 ### Changed

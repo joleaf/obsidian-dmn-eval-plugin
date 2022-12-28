@@ -1,5 +1,4 @@
-import {Plugin} from "obsidian";
-import YAML from 'yaml'
+import {Plugin, parseYaml} from "obsidian";
 import {exec} from 'child_process'
 
 interface DmnNodeParameters {
@@ -125,7 +124,7 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
             jsonString = jsonString.replace("]]", ']]"');
         }
 
-        const parameters: DmnNodeParameters = YAML.parse(jsonString);
+        const parameters: DmnNodeParameters = parseYaml(jsonString);
 
         //Transform internal Link to external
         if (parameters.url.startsWith("[[")) {

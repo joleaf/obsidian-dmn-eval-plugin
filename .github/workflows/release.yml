@@ -20,7 +20,7 @@ jobs:
       - name: Copy DmnEvaluator.jar
         run: cp DmnEvaluator/target/DmnEvaluator*-jar-with-dependencies.jar DmnEvaluator.jar
       - name: Create DmnEvaluator.ts
-        run: echo "export const dmnEvaluatorBase64 = '$(base64 -i DmnEvaluator.jar)';" > DmnEvaluator.ts
+        run: echo "export const dmnEvaluatorBase64 = '$(base64 DmnEvaluator.jar)';" > DmnEvaluator.ts
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:

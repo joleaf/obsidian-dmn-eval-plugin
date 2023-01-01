@@ -59,10 +59,12 @@ You can customize the view with the following parameters:
 ## How to dev
 
 1. Clone this repo into the plugin folder of a (non-productive) vault (`.obsidian/plugins/`)
-2. Build DmnEvaluator:
+2. Build DmnEvaluator (if changed):
    1. `cd DmnEvaluator && mvn --batch-mode --update-snapshots package && cd ..`
    2. `cp DmnEvaluator/target/DmnEvaluator*-jar-with-dependencies.jar DmnEvaluator.jar`
-   3. `echo "export const dmnEvaluatorBase64 = '$(base64 -i DmnEvaluator.jar)';" > DmnEvaluator.ts`
+   3. Recreate the `DmnEvaluator.ts`  
+      - OSX: `echo "export const dmnEvaluatorBase64 = '$(base64 -i DmnEvaluator.jar)';" > DmnEvaluator.ts`
+      - Linux: `echo "export const dmnEvaluatorBase64 = '$(base64 -w 0 DmnEvaluator.jar)';" > DmnEvaluator.ts`
 3. `npm i`
 4. `npm run dev`
 5. Toggle the plugin on in the **Community Plugins** tab

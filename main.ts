@@ -1,5 +1,7 @@
 import {Plugin, parseYaml} from "obsidian";
-import {exec} from 'child_process'
+import {exec} from 'child_process';
+import {dmnEvaluatorBase64} from './DmnEvaluator';
+import {unlinkSync, appendFileSync, existsSync} from "fs";
 
 interface DmnNodeParameters {
     url: string;
@@ -9,9 +11,10 @@ interface DmnNodeParameters {
 }
 
 export default class ObsidianDmnEvalPlugin extends Plugin {
-
     async onload() {
         console.log("DMN Eval loading...");
+        // create the DmnEvaluator.jar file
+        await this.createDMNEvaluatorJar();
 
         this.registerMarkdownCodeBlockProcessor("dmn-eval", async (src, el, ctx) => {
             // Get Parameters
@@ -38,8 +41,7 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                 for (const [key, value] of Object.entries(app.metadataCache.getFileCache(app.workspace.getActiveFile()!)?.frontmatter)) {
                     dmnParams += ' "' + key + '" "' + value + '"';
                 }
-                //@ts-ignore
-                let path = this.app.vault.adapter.basePath + "/" + app.vault.configDir + "/plugins/dmn-eval-plugin";
+                let path = this.getPluginPath();
                 const parameterCopy = parameters;
                 exec("java -jar " + path + "/DmnEvaluator.jar " + dmnParams, (error, stdout, stderr) => {
                     if (error) {
@@ -59,6 +61,19 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                 el.createEl("h3", {text: error});
             }
         });
+    }
+
+    private async createDMNEvaluatorJar() {
+        let dmnJarPath = this.getPluginPath() + "/DmnEvaluator.jar";
+        if (existsSync(dmnJarPath)) {
+            unlinkSync(dmnJarPath);
+        }
+        appendFileSync(dmnJarPath, Buffer.from(dmnEvaluatorBase64, 'base64'));
+    }
+
+    private getPluginPath() {
+        //@ts-ignore
+        return this.app.vault.adapter.basePath + "/" + app.vault.configDir + "/plugins/dmn-eval-plugin";
     }
 
     private renderResult(lines: string[], rootElement: HTMLElement, parameters: DmnNodeParameters) {
@@ -145,5 +160,9 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
 
     onunload() {
         console.log("Unloading DMN Eval plugin...");
+        let dmnJarPath = this.getPluginPath() + "/DmnEvaluator.jar";
+        if (existsSync(dmnJarPath)) {
+            unlinkSync(dmnJarPath);
+        }
     }
 }

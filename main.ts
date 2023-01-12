@@ -37,9 +37,19 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                 parameters.url = this.app.vault.adapter.basePath + "/" + parameters.url;
 
                 let dmnParams = '"' + parameters.url + '" ' + parameters.decisionid;
-                // @ts-ignore
-                for (const [key, value] of Object.entries(app.metadataCache.getFileCache(app.workspace.getActiveFile()!)?.frontmatter)) {
-                    dmnParams += ' "' + key + '" "' + value + '"';
+                const sourceFile = this.app.metadataCache.getFirstLinkpathDest(
+                    ctx.sourcePath,
+                    ctx.sourcePath,
+                );
+                if (sourceFile != null) {
+                    const sourceCache = this.app.metadataCache.getFileCache(sourceFile);
+                    if (sourceCache != null) {
+                        if (sourceCache.frontmatter != undefined) {
+                            for (const [key, value] of Object.entries(sourceCache.frontmatter)) {
+                                dmnParams += ' "' + key + '" "' + value.toString() + '"';
+                            }
+                        }
+                    }
                 }
                 let path = this.getPluginPath();
                 const parameterCopy = parameters;

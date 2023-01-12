@@ -2,6 +2,12 @@
 
 All changes to this plugin are listed here.
 
+## 0.1.4 (2023-01-12)
+
+### Fixed
+
+- #1 use `ctx.sourcePath` to get the frontmatter data
+
 ## 0.1.3 (2023-01-01)
 
 ### Changed

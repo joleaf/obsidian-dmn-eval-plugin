@@ -1,6 +1,6 @@
 {
   "name": "dmn-plugin",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "This plugin enables evaluating/executing DMNs.",
   "main": "main.js",
   "scripts": {

@@ -2,6 +2,12 @@
 
 All changes to this plugin are listed here.
 
+## 0.2.0 (2023-02-01)
+
+### New
+
+- Add `variables` as parameter for the input values
+
 ## 0.1.4 (2023-01-12)
 
 ### Fixed

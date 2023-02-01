@@ -9,6 +9,7 @@ interface DmnNodeParameters {
     decisionid: string;
     title: string;
     noresultmessage: string;
+    variables: { [name: string]: string | undefined }
 }
 
 export default class ObsidianDmnEvalPlugin extends Plugin {
@@ -50,6 +51,11 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                                 dmnParams += ' "' + key + '" "' + value.toString() + '"';
                             }
                         }
+                    }
+                }
+                for (const [key, value] of Object.entries(parameters.variables)) {
+                    if (value !== undefined) {
+                        dmnParams += ' "' + key + '" "' + value.toString() + '"';
                     }
                 }
                 let path = this.getPluginPath();
@@ -164,6 +170,11 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
 
         if (parameters.noresultmessage == undefined) {
             parameters.noresultmessage = "No result"
+        }
+
+        // Variables
+        if (parameters.variables === undefined) {
+            parameters.variables = {};
         }
 
         return parameters;

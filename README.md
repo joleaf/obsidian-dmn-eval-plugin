@@ -28,17 +28,20 @@ If you want to view DMNs in your note, look at the [DMN Plugin](https://github.c
 ## How to use
 
 1. Add a valid `*.dmn` file to your vault (e.g., `my-diagram.dmn`) (e.g., modeled with
-   the [Camunda Modeler](https://camunda.com/de/download/modeler/))
+   the [Camunda Modeler](https://camunda.com/de/download/modeler/)).
 2. Add the DMN to your note:
 
 ````
 ```dmn-eval
 url: [[my-diagram.dmn]]
 decisionId: Evaluator
+variables:
+  myValue1: 2
+  myValue2: 3
 ```
 ````
 
-3. All front matter data of your note are used as input for the DMN evaluation
+3. All front matter data of your note are used as input for the DMN evaluation (in addition to the `variables` values).
 4. If no errors occur, the output of the decision will be evaluated and printed to your note.
 
 ### Parameter
@@ -51,6 +54,7 @@ You can customize the view with the following parameters:
 | decisionId      | An ID of a decision table to evaluate (required).        | String value                                             |
 | title           | An optional title rendered before the DMN output.        | String value                                             |
 | noresultmessage | An optional message if the evaluation returns no result. | String value (Default: "No result")                      |
+| variables  | A map of variables used as input                         | YAML Object                | - |
 
 ### Example
 

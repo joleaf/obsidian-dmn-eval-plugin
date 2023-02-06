@@ -2,6 +2,12 @@
 
 All changes to this plugin are listed here.
 
+## 0.2.1 (2023-02-06)
+
+### Fixed
+
+- Use the `manifest.dir` and the `vault.getBasePath()` function
+
 ## 0.2.0 (2023-02-01)
 
 ### New

@@ -33,10 +33,10 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                 if (parameters.url.startsWith("./")) {
                     const filePath = ctx.sourcePath;
                     const folderPath = filePath.substring(0, filePath.lastIndexOf("/"));
-                    parameters.url = folderPath + "/" + parameters.url.substring(2, parameters.url.length);
+                    parameters.url = folderPath + path.sep + parameters.url.substring(2, parameters.url.length);
                 }
                 //@ts-ignore
-                parameters.url = this.app.vault.adapter.basePath + "/" + parameters.url;
+                parameters.url = this.app.vault.adapter.getBasePath() + path.sep + parameters.url;
 
                 let dmnParams = '"' + parameters.url + '" ' + parameters.decisionid;
                 const sourceFile = this.app.metadataCache.getFirstLinkpathDest(
@@ -58,9 +58,9 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                         dmnParams += ' "' + key + '" "' + value.toString() + '"';
                     }
                 }
-                let path = this.getPluginPath();
+                let jarPath = this.getJarPath();
                 const parameterCopy = parameters;
-                exec("java -jar " + path + "/DmnEvaluator.jar " + dmnParams, (error, stdout, stderr) => {
+                exec("java -jar " + jarPath + " " + dmnParams, (error, stdout, stderr) => {
                     if (error) {
                         console.error(`DMN error: ${error.message}`);
                         el.createEl("h4", {text: "DMN Error", cls: "dmn-error"});
@@ -81,16 +81,19 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
     }
 
     private async createDMNEvaluatorJar() {
-        let dmnJarPath = this.getPluginPath() + path.sep + "DmnEvaluator.jar";
+        let dmnJarPath = this.getJarPath();
+        console.log(dmnJarPath);
         if (existsSync(dmnJarPath)) {
             unlinkSync(dmnJarPath);
         }
         appendFileSync(dmnJarPath, Buffer.from(dmnEvaluatorBase64, 'base64'));
     }
 
-    private getPluginPath() {
+    private getJarPath() {
+        let p = this.manifest.dir + path.sep + "DmnEvaluator.jar";
         //@ts-ignore
-        return this.app.vault.adapter.basePath + path.sep + app.vault.configDir + path.sep + "plugins" + path.sep + "dmn-eval-plugin";
+        p = p.replace(app.vault.configDir, this.app.vault.adapter.getBasePath() + path.sep + app.vault.configDir)
+        return p;
     }
 
     private renderResult(lines: string[], rootElement: HTMLElement, parameters: DmnNodeParameters) {
@@ -182,7 +185,7 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
 
     onunload() {
         console.log("Unloading DMN Eval plugin...");
-        let dmnJarPath = this.getPluginPath() + path.sep + "DmnEvaluator.jar";
+        let dmnJarPath = this.getJarPath();
         if (existsSync(dmnJarPath)) {
             unlinkSync(dmnJarPath);
         }

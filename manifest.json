@@ -1,6 +1,6 @@
 {
 	"id": "dmn-eval",
-	"name": "DMN Eval Plugin",
+	"name": "DMN Eval",
 	"version": "0.2.2",
 	"minAppVersion": "0.15.0",
 	"description": "This plugin enables evaluating/executing DMN",

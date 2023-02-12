@@ -2,6 +2,12 @@
 
 All changes to this plugin are listed here.
 
+## 0.2.2 (2023-02-12)
+
+### Fixed
+
+- Plugin name without "plugin"
+
 ## 0.2.1 (2023-02-06)
 
 ### Fixed

@@ -48,13 +48,21 @@ variables:
 
 You can customize the view with the following parameters:
 
-| Parameter       | Description                                              | Values                                                   |
-|-----------------|----------------------------------------------------------|----------------------------------------------------------|
-| url             | The url of the *.dmn file (required).                    | Relative/Absolute path, or `[[*.dmn]]` as markdown link. |
-| decisionId      | An ID of a decision table to evaluate (required).        | String value                                             |
-| title           | An optional title rendered before the DMN output.        | String value                                             |
-| noresultmessage | An optional message if the evaluation returns no result. | String value (Default: "No result")                      |
-| variables  | A map of variables used as input                         | YAML Object                | - |
+| Parameter       | Description                                                                                                                                                                                                                                                          | Values                                                   |
+|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
+| url             | The url of the *.dmn file (required).                                                                                                                                                                                                                                | Relative/Absolute path, or `[[*.dmn]]` as markdown link. |
+| decisionId      | An ID of a decision table to evaluate (required).                                                                                                                                                                                                                    | String value                                             |
+| title           | An optional h1 rendered before the DMN output.                                                                                                                                                                                                                       | String value                                             |
+| title1          | An optional h1 rendered before the DMN output.                                                                                                                                                                                                                       | String value                                             |
+| title2          | An optional h2 rendered before the DMN output.                                                                                                                                                                                                                       | String value                                             |
+| title3          | An optional h3 rendered before the DMN output.                                                                                                                                                                                                                       | String value                                             |
+| title4          | An optional h4 rendered before the DMN output.                                                                                                                                                                                                                       | String value                                             |
+| title5          | An optional h5 rendered before the DMN output.                                                                                                                                                                                                                       | String value                                             |
+| title6          | An optional h6 rendered before the DMN output.                                                                                                                                                                                                                       | String value                                             |
+| text            | An optional span text rendered before the DMN output.                                                                                                                                                                                                                | String value                                             |
+| noresultmessage | An optional message if the evaluation returns no result.                                                                                                                                                                                                             | String value (Default: "No result")                      |
+| variables       | A map of variables used as input                                                                                                                                                                                                                                     | YAML Object                                              | - |
+| template        | Render the result in a template file. The template file is another Note and should contain `{{result}}` where the result of the DMN evaluation is parsed. Other variables or fontmatter data can be referred as well. Note that the `title*` and `text` are ignored. | Relative/Absolute path, or `[[...]]` as markdown link.   | - |
 
 ### Example
 
@@ -64,11 +72,11 @@ You can customize the view with the following parameters:
 
 1. Clone this repo into the plugin folder of a (non-productive) vault (`.obsidian/plugins/`)
 2. Build DmnEvaluator (if changed):
-   1. `cd DmnEvaluator && mvn --batch-mode --update-snapshots package && cd ..`
-   2. `cp DmnEvaluator/target/DmnEvaluator*-jar-with-dependencies.jar DmnEvaluator.jar`
-   3. Recreate the `DmnEvaluator.ts`  
-      - OSX: `echo "export const dmnEvaluatorBase64 = '$(base64 -i DmnEvaluator.jar)';" > DmnEvaluator.ts`
-      - Linux: `echo "export const dmnEvaluatorBase64 = '$(base64 -w 0 DmnEvaluator.jar)';" > DmnEvaluator.ts`
+    1. `cd DmnEvaluator && mvn --batch-mode --update-snapshots package && cd ..`
+    2. `cp DmnEvaluator/target/DmnEvaluator*-jar-with-dependencies.jar DmnEvaluator.jar`
+    3. Recreate the `DmnEvaluator.ts`
+        - OSX: `echo "export const dmnEvaluatorBase64 = '$(base64 -i DmnEvaluator.jar)';" > DmnEvaluator.ts`
+        - Linux: `echo "export const dmnEvaluatorBase64 = '$(base64 -w 0 DmnEvaluator.jar)';" > DmnEvaluator.ts`
 3. `npm i`
 4. `npm run dev`
 5. Toggle the plugin on in the **Community Plugins** tab

@@ -2,6 +2,17 @@
 
 All changes to this plugin are listed here.
 
+## 0.3.0 (2023-08-23)
+
+### Updated
+
+- Update to camunda 7.19.0
+
+### Added
+
+- Add more title and text options
+- Render the result with a template note
+
 ## 0.2.2 (2023-02-12)
 
 ### Fixed

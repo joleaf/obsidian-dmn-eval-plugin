@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <version.camunda>7.18.0</version.camunda>
+        <version.camunda>7.19.0</version.camunda>
         <slf4j.version>2.0.5</slf4j.version>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>

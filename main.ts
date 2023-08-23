@@ -7,7 +7,14 @@ import * as path from "path";
 interface DmnNodeParameters {
     url: string;
     decisionid: string;
+    title1: string;
+    title2: string;
+    title3: string;
+    title4: string;
+    title5: string;
+    title6: string;
     title: string;
+    text: string;
     noresultmessage: string;
     variables: { [name: string]: string | undefined }
 }
@@ -98,7 +105,28 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
 
     private renderResult(lines: string[], rootElement: HTMLElement, parameters: DmnNodeParameters) {
         if (parameters.title) {
-            rootElement.createEl("h2", {text: parameters.title, cls: "dmn-result-title"})
+            rootElement.createEl("h1", {text: parameters.title, cls: "dmn-result-title"})
+        }
+        if (parameters.title1) {
+            rootElement.createEl("h1", {text: parameters.title1, cls: "dmn-result-title1"})
+        }
+        if (parameters.title2) {
+            rootElement.createEl("h2", {text: parameters.title2, cls: "dmn-result-title2"})
+        }
+        if (parameters.title3) {
+            rootElement.createEl("h3", {text: parameters.title3, cls: "dmn-result-title3"})
+        }
+        if (parameters.title4) {
+            rootElement.createEl("h4", {text: parameters.title4, cls: "dmn-result-title4"})
+        }
+        if (parameters.title5) {
+            rootElement.createEl("h5", {text: parameters.title5, cls: "dmn-result-title5"})
+        }
+        if (parameters.title6) {
+            rootElement.createEl("h6", {text: parameters.title6, cls: "dmn-result-title6"})
+        }
+        if (parameters.text) {
+            rootElement.createEl("span", {text: parameters.text, cls: "dmn-result-text"})
         }
         if (lines.length == 0) {
             this.renderNoResult(rootElement, parameters);

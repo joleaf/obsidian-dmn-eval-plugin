@@ -7,7 +7,7 @@ If you want to view DMNs in your note, look at the [DMN Plugin](https://github.c
 
 ## Install ..
 
-### .. automatically in Obsidian (not yet)
+### .. automatically in Obsidian
 
 1. Go to **Community Plugins** in your Obsidian Settings and **disable** Safe Mode
 2. Click on **Browse** and search for "DMN Eval Plugin"

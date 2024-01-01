@@ -2,6 +2,14 @@
 
 All changes to this plugin are listed here.
 
+## 0.4.0 (2024-01-01)
+
+### Updated
+
+- Update to camunda 7.20.0
+- Parse number and boolean values
+- added the `textafter` parameter
+
 ## 0.3.0 (2023-08-23)
 
 ### Updated

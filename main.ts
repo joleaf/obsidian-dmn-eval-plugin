@@ -15,9 +15,10 @@ interface DmnNodeParameters {
     title6: string;
     title: string;
     text: string;
+    textafter: string;
     template: string;
     noresultmessage: string;
-    variables: { [name: string]: string | undefined }
+    variables: { [name: string]: any | undefined }
 }
 
 export default class ObsidianDmnEvalPlugin extends Plugin {
@@ -58,11 +59,12 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                 }
                 for (const [key, value] of Object.entries(parameters.variables)) {
                     if (value !== undefined) {
-                        dmnParams += ' "' + key + '" "' + value.toString() + '"';
+                        dmnParams += ' "' + key + '" "' + value.toString() + '" "' + typeof value + '"';
                     }
                 }
                 let jarPath = this.getJarPath();
                 const parameterCopy = parameters;
+                console.log(dmnParams);
                 exec("java -jar " + jarPath + " " + dmnParams, async (error, stdout, stderr) => {
                     if (error) {
                         console.error(`DMN error: ${error.message}`);
@@ -85,7 +87,6 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
 
     private async createDMNEvaluatorJar() {
         let dmnJarPath = this.getJarPath();
-        console.log(dmnJarPath);
         if (existsSync(dmnJarPath)) {
             unlinkSync(dmnJarPath);
         }
@@ -141,6 +142,9 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                     }
                 }
             }
+            if (parameters.textafter) {
+                rootElement.createEl("span", {text: parameters.textafter, cls: "dmn-result-textafter"})
+            }
         }
     }
 
@@ -185,12 +189,10 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
         if (parameters.template === undefined) {
             return false;
         }
-        console.log(parameters.template)
         const mdFile = this.app.metadataCache.getFirstLinkpathDest(
             parameters.template,
             ctx.sourcePath
         );
-        console.log(mdFile)
         if (mdFile != null) {
             let mdContent = await this.app.vault.read(mdFile);
             for (const [variable, value] of Object.entries(parameters.variables)) {

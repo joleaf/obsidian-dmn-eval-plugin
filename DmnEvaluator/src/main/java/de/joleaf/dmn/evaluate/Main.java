@@ -31,10 +31,17 @@ public class Main {
         VariableMap variables;
         try {
             variables = new VariableMapImpl();
-            for (int i = 2; i < args.length - 1; i += 2) {
+            for (int i = 2; i < args.length - 1; i += 3) {
                 String key = args[i];
                 String value = args[i + 1];
-                variables.put(key, value);
+                String type = args[i + 2];
+                if ("number".equals(type)) {
+                    variables.put(key, Double.parseDouble(value));
+                } else if ("boolean".equals(type)) {
+                    variables.put(key, Boolean.parseBoolean(value));
+                } else {
+                    variables.put(key, value);
+                }
             }
         } catch (Exception e) {
             System.err.println("Error while reading variables!");

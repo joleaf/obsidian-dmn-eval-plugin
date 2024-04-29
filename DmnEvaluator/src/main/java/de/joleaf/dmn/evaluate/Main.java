@@ -10,8 +10,7 @@ import java.util.stream.Collectors;
 public class Main {
     public static void main(String[] args) {
         // create default DMN engine configuration
-        DmnEngineConfiguration configuration = DmnEngineConfiguration
-                .createDefaultDmnEngineConfiguration();
+        DmnEngineConfiguration configuration = DmnEngineConfiguration.createDefaultDmnEngineConfiguration();
         DmnEngine dmnEngine = configuration.buildEngine();
 
         // read the DMN XML file as input stream
@@ -44,7 +43,7 @@ public class Main {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Error while reading variables!");
+            System.err.println("Error while reading input variables!");
             System.err.println(e.getMessage());
             return;
         }
@@ -61,7 +60,8 @@ public class Main {
 
         // Print the result to system out
         for (DmnDecisionResultEntries r : result) {
-            System.out.println(r.entrySet().stream().map(e -> e.getKey() + "::" + e.getValue().toString()).collect(Collectors.joining("||")));
+            String resultLine = r.entrySet().stream().map(e -> e.getKey() + "::" + e.getValue().toString()).collect(Collectors.joining("||"));
+            System.out.println(resultLine);
         }
     }
 }

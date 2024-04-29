@@ -2,6 +2,12 @@
 
 All changes to this plugin are listed here.
 
+## 0.4.1 (2024-04-29)
+
+### Updated
+
+- Update to camunda 7.21.0
+
 ## 0.4.0 (2024-01-01)
 
 ### Updated

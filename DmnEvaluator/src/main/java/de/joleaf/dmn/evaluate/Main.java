@@ -60,7 +60,9 @@ public class Main {
 
         // Print the result to system out
         for (DmnDecisionResultEntries r : result) {
-            String resultLine = r.entrySet().stream().map(e -> e.getKey() + "::" + e.getValue().toString()).collect(Collectors.joining("||"));
+            String resultLine = r.entrySet().stream().map(e ->
+                    e.getKey() + "::" + (e.getValue() == null ? "null" : e.getValue().toString())
+            ).collect(Collectors.joining("||"));
             System.out.println(resultLine);
         }
     }

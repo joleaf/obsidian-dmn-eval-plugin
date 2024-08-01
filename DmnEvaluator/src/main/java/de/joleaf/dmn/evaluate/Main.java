@@ -5,6 +5,7 @@ import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
 
 import java.io.FileInputStream;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -14,18 +15,23 @@ public class Main {
         DmnEngine dmnEngine = configuration.buildEngine();
 
         // read the DMN XML file as input stream
-        DmnDecision decision;
+        DmnDecision decision = null;
+        String dmnDecisionKeyOrName = args[1];
         try {
             FileInputStream dmnFileInputStream = new FileInputStream(args[0]);
-            String dmnDecisionKey = args[1];
-            // parse the DMN decision from the input stream
-            decision = dmnEngine.parseDecision(dmnDecisionKey, dmnFileInputStream);
+            List<DmnDecision> decisions = dmnEngine.parseDecisions(dmnFileInputStream);
+            for (DmnDecision d : decisions) {
+                if (dmnDecisionKeyOrName.equals(d.getKey()) || dmnDecisionKeyOrName.equals(d.getName())) {
+                    decision = d;
+                }
+            }
+            if (decision == null) {
+                throw new IllegalArgumentException("The key or name '" + dmnDecisionKeyOrName + "' was not found");
+            }
         } catch (Exception e) {
-            System.err.println("Error while reading decision!");
             System.err.println(e.getMessage());
             return;
         }
-
         // create the input variables
         VariableMap variables;
         try {

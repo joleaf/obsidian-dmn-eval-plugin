@@ -41,7 +41,7 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
             try {
 
 
-                let dmnParams = '"' + parameters.url + '" ' + parameters.decisionid;
+                let dmnParams = '"' + parameters.url + '" "' + parameters.decisionid + '"';
                 const sourceFile = this.app.metadataCache.getFirstLinkpathDest(
                     ctx.sourcePath,
                     "",

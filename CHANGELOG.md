@@ -2,6 +2,12 @@
 
 All changes to this plugin are listed here.
 
+## 0.4.2 (2024-08-01)
+
+### Updated
+
+- Fixed an issue with null pointer exceptions
+
 ## 0.4.1 (2024-04-29)
 
 ### Updated

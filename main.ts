@@ -58,7 +58,7 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                     }
                 }
                 for (const [key, value] of Object.entries(parameters.variables)) {
-                    if (value !== undefined) {
+                    if (value !== undefined && value !== null) {
                         dmnParams += ' "' + key + '" "' + value.toString() + '" "' + typeof value + '"';
                     }
                 }

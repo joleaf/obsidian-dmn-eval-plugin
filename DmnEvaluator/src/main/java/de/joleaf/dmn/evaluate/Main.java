@@ -3,8 +3,13 @@ package de.joleaf.dmn.evaluate;
 import org.camunda.bpm.dmn.engine.*;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
+import org.camunda.bpm.engine.variable.impl.value.PrimitiveTypeValueImpl;
 
 import java.io.FileInputStream;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,9 +46,11 @@ public class Main {
                 String value = args[i + 1];
                 String type = args[i + 2];
                 if ("number".equals(type)) {
-                    variables.put(key, Double.parseDouble(value));
+                    variables.putValueTyped(key, new PrimitiveTypeValueImpl.DoubleValueImpl(Double.parseDouble(value)));
                 } else if ("boolean".equals(type)) {
-                    variables.put(key, Boolean.parseBoolean(value));
+                    variables.putValueTyped(key, new PrimitiveTypeValueImpl.BooleanValueImpl(Boolean.parseBoolean(value)));
+                } else if ("datetime".equals(type)) {
+                    variables.put(key, new PrimitiveTypeValueImpl.DateValueImpl(Date.from(ZonedDateTime.parse(value).toInstant())));
                 } else {
                     variables.put(key, value);
                 }

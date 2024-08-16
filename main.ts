@@ -59,7 +59,14 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                 }
                 for (const [key, value] of Object.entries(parameters.variables)) {
                     if (value !== undefined && value !== null) {
-                        dmnParams += ' "' + key + '" "' + value.toString() + '" "' + typeof value + '"';
+                        let pValue = value.toString();
+                        let type: string = typeof value;
+                        let isDate = !isNaN(Date.parse(value.toString()));
+                        if (type != "number" && isDate) {
+                            type = "datetime";
+                            pValue = new Date(value).toISOString();
+                        }
+                        dmnParams += ' "' + key + '" "' + pValue + '" "' + type + '"';
                     }
                 }
                 let jarPath = this.getJarPath();

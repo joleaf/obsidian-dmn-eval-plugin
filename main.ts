@@ -71,7 +71,7 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                 }
                 let jarPath = this.getJarPath();
                 const parameterCopy = parameters;
-                console.log(dmnParams);
+                // console.log(dmnParams);
                 exec("java -jar " + jarPath + " " + dmnParams, async (error, stdout, stderr) => {
                     if (error) {
                         console.error(`DMN error: ${error.message}`);
@@ -223,7 +223,7 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
                 }
             }
 
-            await MarkdownRenderer.renderMarkdown(mdContent, rootElement, mdFile.path, new Component());
+            await MarkdownRenderer.render(this.app, mdContent, rootElement, mdFile.path, new Component());
             return true;
         }
         return false;
@@ -234,13 +234,16 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
     }
 
     private renderSingleResultMd(line: string, mdContent: string): string {
-        return mdContent.replace("{{result}}", line.split("::")[1]);
+        const [key, value] = line.split("::");
+        return mdContent.replace("{{result}}", value).replace("{{" + key + "}}", value);
     }
 
     private renderResultListMd(lines: string[], mdContent: string) {
         let newMdList = '';
-        lines.forEach(value => {
-            newMdList += "- " + value.split("::")[1] + '\n';
+        lines.forEach((line, index) => {
+            const [key, value] = line.split("::");
+            newMdList += "- " + value + '\n';
+            mdContent = mdContent.replace("{{" + key + (1 + index) + "}}", value);
         });
         return mdContent.replace("{{result}}", newMdList);
     }
@@ -253,6 +256,17 @@ export default class ObsidianDmnEvalPlugin extends Plugin {
             mdTable += '---|';
         });
         mdTable += '\n';
+        console.log(lines);
+        lines.forEach((line, index) => {
+            const results = line.split("||");
+            results.forEach(result => {
+                const [key, value] = result.split("::");
+                mdContent = mdContent.replace("{{" + key + (1 + index) + "}}", value);
+                if (index == 0) {
+                    mdContent = mdContent.replace("{{" + key + "}}", value);
+                }
+            });
+        });
 
         lines.forEach(line => {
                 mdTable += '|';

@@ -2,6 +2,12 @@
 
 All changes to this plugin are listed here.
 
+## 0.5.0 (2024-08-31)
+
+### New
+
+- Reference output columns in template notes.
+
 ## 0.4.2 (2024-08-01)
 
 ### Updated

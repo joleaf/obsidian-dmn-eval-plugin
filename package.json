@@ -1,7 +1,7 @@
 {
   "name": "dmn-eval",
-  "version": "0.4.2",
-  "description": "This plugin enables evaluating/executing DMNs.",
+  "version": "0.5.0",
+  "description": "This plugin enables evaluating DMNs in an obsidian note.",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
